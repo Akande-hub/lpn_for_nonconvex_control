@@ -2,15 +2,9 @@
 
 Based on
 [What's in a Prior? Learned Proximal Networks for Inverse Problems](https://openreview.net/pdf?id=kNPcOaqC5r)
-(Fang, Buchanan, Sulam, ICLR 2024); the repository began as a fork of the
+(Fang, Buchanan, Sulam, ICLR 2024); The method learns a convex potential whose gradient is the proximal operator, then recovers the prior either by inverting that gradient per query or by fitting a second network — the latter matching a fully tuned inversion baseline without ever inverting. The repository began as a fork of the
 Sulam-Group implementation.
 
-**Read `numerics_audit.tex` (9 pp) first.** It states the current protocol, the
-bugs fixed, the claims retracted, and the open items. `changes.txt` is the
-chronological record and lists every superseded number. Figures and tables that
-predate the protocol in the audit should not be cited.
-
----
 
 ## The two recoveries
 
