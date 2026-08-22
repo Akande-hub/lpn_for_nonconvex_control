@@ -1,6 +1,6 @@
 # Learned proximal networks for (non-)convex high-dimensional Hamilton–Jacobi PDEs
 
-Numerics for the SIAP revision. Based on
+Based on
 [What's in a Prior? Learned Proximal Networks for Inverse Problems](https://openreview.net/pdf?id=kNPcOaqC5r)
 (Fang, Buchanan, Sulam, ICLR 2024); the repository began as a fork of the
 Sulam-Group implementation.
