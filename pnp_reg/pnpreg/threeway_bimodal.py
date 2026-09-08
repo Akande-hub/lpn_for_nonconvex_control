@@ -26,7 +26,7 @@ METHODS (Experiment 3.2's data, network, budget and scoring, unchanged):
                 DENOISER's own output, J_2 = G - 0.5||y||^2. One
                 forward pass. Class: 1-SEMICONVEX, same reason.
                 This is Experiment 3.2's fit (a).
-  Direct fit    plain ICNN, grad J(y_k) = z_k - y_k. Experiment 3.2's
+  One-network    plain ICNN, grad J(y_k) = z_k - y_k. Experiment 3.2's
                 fit (b), the convex control. Class: CONVEX -- it does
                 not contain a nonconvex f_reg.
 
@@ -229,7 +229,7 @@ def run(sigma=0.5, steps=None, batch=None, smoke=False, force=False):
          lambda y: preimage(psi_w, y) - np.asarray(y), "1-semiconvex", "inversion/query"),
         ("Two-network", lambda y: br.value_J(G, G_u, y, "a"),
          lambda y: br.grad_G(G, G_u, y) - np.asarray(y), "1-semiconvex", "forward"),
-        ("Direct fit", lambda y: br.value_J(Jd, Jd_u, y, "b"),
+        ("One-network", lambda y: br.value_J(Jd, Jd_u, y, "b"),
          lambda y: br.grad_G(Jd, Jd_u, y), "convex", "forward"),
     ]
 
@@ -293,7 +293,7 @@ def run(sigma=0.5, steps=None, batch=None, smoke=False, force=False):
     except Exception as e:
         print(f"  [plotstyle unavailable: {e}]")
     colors = {"Iterative": "#4C6EF5", "Two-network": "#F59F00",
-              "Direct fit": "#2F9E44"}
+              "One-network": "#2F9E44"}
     fig, ax = plt.subplots(1, 2, figsize=(12, 4.4))
     dm = lambda v: v - v.mean()
     ax[0].plot(s_grid, dm(ex_uv), "k-", lw=2.5, label="exact  $t\\,J_{BVS}$")

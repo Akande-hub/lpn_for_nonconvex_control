@@ -13,7 +13,7 @@ separates them:
   Two-network   G_theta ~ psi_theta* on conjugate pairs made from
                 psi_theta, J_2 = G - 0.5 y^2. One forward pass.
                 Class: 1-SEMICONVEX, same reason.
-  Direct fit    J_theta a plain ICNN, grad J(y_k) = x_k - y_k.
+  One-network    J_theta a plain ICNN, grad J(y_k) = x_k - y_k.
                 Class: CONVEX. Does not contain a nonconvex f_reg.
 
 THE POINT. The -0.5||.||^2 in the first two is not a trick of the one-shot route:
@@ -119,7 +119,7 @@ def run(sigma=0.5, steps=None, smoke=False):
     G, val_G = fit(yh, x, yhv, xv, steps)
     t_G = time.time() - t0
 
-    # --- Direct fit: plain ICNN on the regularizer itself -------------------
+    # --- One-network: plain ICNN on the regularizer itself -------------------
     t0 = time.time()
     Jd, val_Jd = fit(y, x - y, yv, xv - yv, steps)
     t_Jd = time.time() - t0
@@ -149,7 +149,7 @@ def run(sigma=0.5, steps=None, smoke=False):
     for name, f, r, t_tr, t_ev, cls in [
         ("Iterative", f_it, r_it, t_psi, t_eval_it, "1-semiconvex"),
         ("Two-network", f_os, r_os, t_psi + t_G, t_eval_os, "1-semiconvex"),
-        ("Direct fit", f_dr, r_dr, t_Jd, t_eval_dr, "convex"),
+        ("One-network", f_dr, r_dr, t_Jd, t_eval_dr, "convex"),
     ]:
         fc = demean(f, m)
         rows.append(dict(
@@ -188,7 +188,7 @@ def run(sigma=0.5, steps=None, smoke=False):
     ax[0].plot(gm, demean(exact, m)[m], "k-", lw=2.5, label="exact  $f_{reg}=t\\,J_{BVS}$")
     for (name, f), c, ls in zip([("Iterative", f_it),
                                  ("Two-network", f_os),
-                                 ("Direct fit", f_dr)],
+                                 ("One-network", f_dr)],
                                 ["#4C6EF5", "#F59F00", "#2F9E44"], ["--", "-.", ":"]):
         ax[0].plot(gm, demean(f, m)[m], ls, lw=2, color=c, label=name)
     ax[0].set_xlabel("$y$"); ax[0].set_ylabel("$f_{reg}$ (centred)")
@@ -202,7 +202,7 @@ def run(sigma=0.5, steps=None, smoke=False):
     ax[1].plot(xx, d2(exact)[mc[1:-1]], "k-", lw=2.5, label="exact")
     for (name, f), c, ls in zip([("Iterative", f_it),
                                  ("Two-network", f_os),
-                                 ("Direct fit", f_dr)],
+                                 ("One-network", f_dr)],
                                 ["#4C6EF5", "#F59F00", "#2F9E44"], ["--", "-.", ":"]):
         ax[1].plot(xx, d2(f)[mc[1:-1]], ls, lw=2, color=c, label=name)
     ax[1].axhline(0, color="#868E96", lw=1)
