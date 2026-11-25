@@ -169,3 +169,9 @@ cython_debug/
 exps/exp_quadratic_concave_prior_MC_16D.ipynb
 exps/exp_quadratic_concave_prior_32D_test_v1.ipynb
 exps/exp_quadratic_concave_prior_16D.ipynb
+
+/__notes/
+
+/__note_from_colleague/
+
+/__new_theory_exps/
